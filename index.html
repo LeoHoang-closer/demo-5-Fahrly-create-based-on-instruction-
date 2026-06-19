@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="meta_title">Fahrly | Intelligente Dispositionssoftware für Flottenbetreiber</title>
+    <meta name="description" content="Reduzieren Sie Überstunden und steigern Sie die Rentabilität Ihrer Flotte mit Fahrly. Die spezialisierte Dispositionssoftware für Amazon DSPs." data-i18n-attr="content:meta_desc">
+    
+    <!-- SEO & Social -->
+    <link rel="canonical" href="https://fahrly.de">
+    <meta property="og:title" content="Fahrly | Dispositionssoftware" data-i18n-attr="content:meta_title">
+    <meta property="og:description" content="Reduzieren Sie Überstunden und steigern Sie die Rentabilität Ihrer Flotte." data-i18n-attr="content:meta_desc">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fahrly.de">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Design System -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FFFFFF;
+            --text: #111827;
+            --heading: #111111;
+            --accent: #111827;
+            --accent-hover: #374151;
+            --muted: #6B7280;
+            --inactive: #9CA3AF;
+            --border: #E5E7EB;
+            --error: #DC2626;
+            --success: #059669;
+            --radius-card: 8px;
+            --radius-btn: 6px;
+            --max-width: 1200px;
+            --section-spacing: 80px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 16px;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3 { line-height: 1.2; font-weight: 700; text-align: left; color: var(--heading); }
+        h1 { font-size: 48px; margin-bottom: 24px; }
+        h2 { font-size: 32px; margin-bottom: 40px; }
+        p { margin-bottom: 16px; text-align: left; color: var(--text); }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section { padding: var(--section-spacing) 0; border-bottom: 1px solid var(--border); }
+
+        /* Navigation */
+        nav {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+        }
+
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #111111; font-weight: 500; font-size: 14px; }
+        .nav-links a:hover { color: var(--accent-hover); }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            user-select: none;
+            flex-shrink: 0;
+            width: 54px; /* Fixed width to prevent layout shifts */
+        }
+
+        .lang-selector span[data-lang] {
+            cursor: pointer;
+            transition: color 0.2s ease;
+            color: #9CA3AF;
+        }
+
+        .lang-selector span[data-lang].active {
+            color: #111111;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #FFFFFF;
+            padding: 12px 24px;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid var(--accent);
+            cursor: pointer;
+            text-align: left;
+        }
+        .btn:hover { 
+            background: var(--accent-hover); 
+            border-color: var(--accent-hover);
+        }
+        .btn-outline { 
+            background: #FFFFFF; 
+            border: 1px solid var(--border); 
+            color: #111111; 
+        }
+        .btn-outline:hover { 
+            background: #111111; 
+            color: #FFFFFF; 
+            border-color: #111111; 
+        }
+
+        /* Specific fix for Nav button to always be white */
+        nav .btn { color: #FFFFFF !important; }
+
+        /* Hero */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content p { font-size: 20px; color: var(--muted); margin-bottom: 32px; }
+
+        /* Dashboard Mockup */
+        .dashboard-mockup {
+            background: #F9FAFB;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            height: 520px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .sidebar { 
+            width: 180px; 
+            background: #FFFFFF; 
+            padding: 20px 12px; 
+            display: flex; 
+            flex-direction: column; 
+            border-right: 1px solid var(--border);
+        }
+        .sidebar-brand { font-size: 14px; font-weight: 800; color: #111111; margin-bottom: 16px; padding-left: 8px; }
+        .nav-group { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+        .nav-item { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            padding: 6px 8px; 
+            border-radius: 6px; 
+            text-decoration: none; 
+            color: #4B5563; 
+            font-size: 11px; 
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .nav-item svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+        .nav-item.active { background: #F3F4F6; color: #111111; }
+        .nav-item:hover:not(.active) { background: #F9FAFB; color: #111111; }
+        .nav-item .arrow { margin-left: auto; width: 10px; height: 10px; opacity: 0.5; }
+        
+        .sub-items { padding-left: 32px; display: flex; flex-direction: column; gap: 2px; margin-top: 2px; }
+        .sub-item { font-size: 10px; color: #6B7280; padding: 3px 0; cursor: pointer; }
+        .sub-item:hover { color: #111111; }
+
+        .bottom-nav { border-top: 1px solid var(--border); padding-top: 12px; display: flex; flex-direction: column; gap: 2px; }
+
+        .main-area { flex: 1; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .top-bar .title { font-weight: 700; font-size: 14px; }
+        .top-bar .avatar { width: 24px; height: 24px; background: var(--border); border-radius: 50%; }
+
+        .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .kpi-card { background: white; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius-card); }
+        .kpi-card .label { font-size: 10px; color: var(--muted); display: block; margin-bottom: 4px; }
+        .kpi-card .value { font-weight: 700; font-size: 14px; }
+
+        .chart-box { height: 120px; background: white; border: 1px solid var(--border); border-radius: var(--radius-card); padding: 12px; position: relative; }
+        .chart-svg { width: 100%; height: 100%; }
+
+        .table-box { background: white; border: 1px solid var(--border); border-radius: var(--radius-card); flex: 1; overflow: hidden; }
+        .table-row { display: grid; grid-template-columns: repeat(4, 1fr); padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 10px; }
+        .table-header { background: #F9FAFB; font-weight: 700; }
+
+        /* Problem Section */
+        .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .problem-card h3 { font-size: 20px; margin-bottom: 16px; color: var(--error); }
+        .problem-card p { color: var(--muted); }
+
+        /* Features */
+        .feature-item { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 60px; }
+        .feature-item:nth-child(even) { direction: rtl; }
+        .feature-item:nth-child(even) .feature-text { direction: ltr; }
+        .feature-img { 
+            background: #F9FAFB; 
+            height: 350px; 
+            border-radius: 20px; 
+            border: 1px solid var(--border); 
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Route Graphic Styles */
+        .route-graphic-container { width: 100%; height: 100%; position: relative; }
+        .route-label { font-size: 10px; font-weight: 700; fill: #111111; }
+        .route-sub { font-size: 8px; fill: #6B7280; }
+        .metric-card { 
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            background: white; 
+            padding: 12px; 
+            border-radius: 12px; 
+            border: 1px solid var(--border); 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            text-align: right;
+        }
+        .metric-card .label { font-size: 9px; font-weight: 700; color: #9CA3AF; letter-spacing: 0.05em; display: block; }
+        .metric-card .value { font-size: 18px; font-weight: 800; color: #111111; display: block; }
+        .metric-card .unit { font-size: 10px; color: #6B7280; }
+        
+        .status-badge {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            font-size: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .status-dot { width: 6px; height: 6px; background: #059669; border-radius: 50%; }
+
+        /* Performance Graphic Styles */
+        .perf-graphic-container { 
+            width: 100%; height: 100%; padding: 24px; display: flex; flex-direction: column; gap: 16px; 
+            background: #FDFCFE; /* Slightly purple tint for variety */
+        }
+        .leaderboard { background: white; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+        .leader-row { 
+            display: grid;
+            grid-template-columns: 24px 1fr 60px 40px;
+            align-items: center; 
+            gap: 12px; 
+            padding: 10px 16px; 
+            border-bottom: 1px solid #F3F4F6;
+        }
+        .leader-row:last-child { border-bottom: none; }
+        .leader-avatar { width: 24px; height: 24px; border-radius: 50%; background: #F3F4F6; }
+        .leader-info { flex: 1; }
+        .leader-name { font-size: 11px; font-weight: 700; color: #111111; display: block; margin-bottom: 4px; }
+        .leader-bar-bg { width: 100%; height: 6px; background: #F3F4F6; border-radius: 3px; }
+        .leader-bar-fill { height: 100%; background: #111827; border-radius: 3px; }
+        .leader-score { font-size: 10px; font-weight: 700; color: #111111; grid-column: 4; text-align: right; }
+        
+        .perf-badge { 
+            background: #ECFDF5; color: #059669; padding: 4px 8px; border-radius: 12px; font-size: 8px; font-weight: 700; text-transform: uppercase;
+        }
+        .avg-card {
+            background: #111827; color: white; padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 4px;
+        }
+        .avg-card .label { font-size: 8px; font-weight: 600; opacity: 0.7; letter-spacing: 0.05em; }
+        .avg-card .value { font-size: 20px; font-weight: 800; }
+
+        /* Pricing */
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .pricing-card { padding: 32px; border: 1px solid var(--border); border-radius: var(--radius-card); display: flex; flex-direction: column; }
+        .pricing-card .btn { margin-top: auto; }
+        .pricing-card .price { font-size: 32px; font-weight: 800; margin: 24px 0; line-height: 1.1; color: #111111; letter-spacing: -0.02em; white-space: nowrap; }
+        .pricing-card .price span { font-size: 16px; font-weight: 500; color: #6B7280; margin-left: 4px; }
+
+        /* FAQ */
+        .faq-item { margin-bottom: 24px; max-width: 800px; }
+        .faq-item h3 { font-size: 18px; margin-bottom: 8px; }
+        .faq-item p { color: var(--muted); border-left: 3px solid var(--accent); padding-left: 16px; }
+
+        /* Form */
+        .contact-box { max-width: 600px; margin: 0; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+        input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius-btn); font-size: 16px; }
+        input:focus { outline: none; border-color: var(--accent); }
+        .error-msg { color: var(--error); font-size: 12px; margin-top: 4px; display: none; }
+
+        #success-state { display: none; text-align: left; }
+        #success-state h2 { color: var(--success); }
+
+        /* Footer */
+        footer { padding: 60px 0; background: #F9FAFB; color: var(--muted); font-size: 14px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-grid, .problem-grid, .feature-item, .pricing-grid, .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .feature-item:nth-child(even) { direction: ltr; }
+            h1 { font-size: 36px; }
+            section { padding: 60px 0; }
+            .nav-links { display: none; }
+            .dashboard-mockup { margin-top: 40px; height: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container" style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+            <div style="font-weight: 900; font-size: 24px; color: var(--accent);">FAHRLY</div>
+            <div class="nav-links">
+                <a href="#features" data-i18n="nav_features">Funktionen</a>
+                <a href="#pricing" data-i18n="nav_pricing">Preise</a>
+                <a href="#faq" data-i18n="nav_faq">FAQ</a>
+                <div class="lang-selector" id="lang-selector">
+                    <span onclick="setLang('en')" data-lang="en">EN</span>
+                    <span onclick="setLang('de')" data-lang="de">DE</span>
+                </div>
+                <a href="#contact" class="btn" data-i18n="cta_demo">Demo anfragen</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section>
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <h1 data-i18n="hero_h1">Dispositionssoftware für profitables Flottenmanagement.</h1>
+                <p data-i18n="hero_sub">Reduzieren Sie Überstunden um bis zu 25% und gewinnen Sie die volle Kontrolle über Ihre täglichen Routen – speziell für Amazon DSPs entwickelt.</p>
+                <div style="display: flex; gap: 16px;">
+                    <a href="#contact" class="btn" data-i18n="cta_demo">Kostenlose Demo</a>
+                    <a href="#features" class="btn btn-outline" data-i18n="cta_more">Mehr erfahren</a>
+                </div>
+            </div>
+            
+            <div class="dashboard-mockup">
+                <div class="sidebar">
+                    <div class="sidebar-brand">Fahrly</div>
+                    <div class="nav-group">
+                        <div class="nav-item active">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+                            <span data-i18n="side_dash">Dashboard</span>
+                        </div>
+                        <div class="nav-item">
+                            <svg viewBox="0 0 24 24"><path d="M18.5 18H15M9 18H5.5M7 15l-1.5 3M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM5.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM15 13H9m-3-4h12l1 4H5l1-4Z"/></svg>
+                            <span data-i18n="side_go">FahrlyGO</span>
+                            <svg class="arrow" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                        <div class="nav-item">
+                            <svg viewBox="0 0 24 24"><path d="M7 17a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm16 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM5 17h10M10 9l5-5 5 5M10 9h10v8"/></svg>
+                            <span data-i18n="side_fleet">Fleet</span>
+                            <svg class="arrow" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                        <div class="nav-item">
+                            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-2-2 2-2"/></svg>
+                            <span data-i18n="side_hr">HR</span>
+                            <svg class="arrow" style="transform: rotate(90deg)" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                        <div class="sub-items">
+                            <div class="sub-item" data-i18n="side_hr_drivers">Drivers</div>
+                            <div class="sub-item" data-i18n="side_hr_onboarding">Onboarding</div>
+                            <div class="sub-item" data-i18n="side_hr_salary">Salary Calc</div>
+                            <div class="sub-item" data-i18n="side_hr_timesheets">Timesheets</div>
+                        </div>
+                        <div class="nav-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+                            <span data-i18n="side_compliance">Compliance</span>
+                            <svg class="arrow" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                        <div class="nav-item">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4h-6"/></svg>
+                            <span data-i18n="side_finance">Finance</span>
+                            <svg class="arrow" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                            <span data-i18n="side_integration">Integration</span>
+                        </div>
+                        <div class="nav-item">
+                            <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3ZM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3Z"/></svg>
+                            <span data-i18n="side_support">Support</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-area">
+                    <div class="top-bar">
+                        <div class="title" data-i18n="dash_title">Operations Dashboard</div>
+                        <div class="avatar"></div>
+                    </div>
+                    <div class="kpi-row">
+                        <div class="kpi-card"><span class="label" data-i18n="dash_kpi_1">Umsatz</span><span class="value">€142.4k</span></div>
+                        <div class="kpi-card"><span class="label" data-i18n="dash_kpi_2">Aktive Fahrer</span><span class="value">42</span></div>
+                        <div class="kpi-card"><span class="label" data-i18n="dash_kpi_3">Auslastung</span><span class="value">94.2%</span></div>
+                        <div class="kpi-card"><span class="label" data-i18n="dash_kpi_4">Profit</span><span class="value">18.4%</span></div>
+                    </div>
+                    <div class="chart-box">
+                        <svg class="chart-svg" viewBox="0 0 400 100">
+                            <path d="M0 80 Q50 20 100 50 T200 30 T300 70 T400 40" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                            <rect x="0" y="0" width="400" height="100" fill="var(--accent)" opacity="0.05"/>
+                        </svg>
+                    </div>
+                    <div class="table-box">
+                        <div class="table-row table-header">
+                            <span data-i18n="dash_t1">Fahrer</span>
+                            <span data-i18n="dash_t2">Route</span>
+                            <span data-i18n="dash_t3">Status</span>
+                            <span data-i18n="dash_t4">Effizienz</span>
+                        </div>
+                        <div class="table-row"><span>M. Schmidt</span><span>R-104</span><span style="color:var(--success)">Active</span><span>98%</span></div>
+                        <div class="table-row"><span>L. Weber</span><span>R-202</span><span style="color:var(--success)">Active</span><span>92%</span></div>
+                        <div class="table-row"><span>K. Wagner</span><span>R-305</span><span style="color:var(--muted)">Break</span><span>85%</span></div>
+                        <div class="table-row"><span>J. Klein</span><span>R-112</span><span style="color:var(--success)">Active</span><span>96%</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems -->
+    <section>
+        <div class="container">
+            <h2 data-i18n="prob_title">Warum traditionelle Disposition scheitert.</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3 data-i18n="prob_1_h">Explodierende Überstunden</h3>
+                    <p data-i18n="prob_1_p">Manuelle Planung führt zu ineffizienten Routen, die Ihre Profitabilität durch enorme Lohnnebenkosten zerstören.</p>
+                </div>
+                <div class="problem-card">
+                    <h3 data-i18n="prob_2_h">Daten-Blindflug</h3>
+                    <p data-i18n="prob_2_p">Excel-Tabellen liefern keine Echtzeit-Daten. Wenn Sie das Problem bemerken, ist das Geld bereits verloren.</p>
+                </div>
+                <div class="problem-card">
+                    <h3 data-i18n="prob_3_h">Fahrerflucht</h3>
+                    <p data-i18n="prob_3_p">Ungerechte Workload-Verteilung frustriert Ihre besten Leute. Hohe Fluktuation kostet Sie Zehntausende pro Jahr.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions -->
+    <section id="features">
+        <div class="container">
+            <h2 data-i18n="feat_title">Die Lösung für moderne Flottenbetreiber.</h2>
+            
+            <div class="feature-item">
+                <div class="feature-text">
+                    <h3 data-i18n="feat_1_h">KI-gestützte Tourenplanung</h3>
+                    <p data-i18n="feat_1_p">Optimieren Sie Ihre Routen in Sekunden statt Stunden. Unser Algorithmus berücksichtigt Verkehr, Volumen und Fahrer-Skills automatisch.</p>
+                </div>
+                <div class="feature-img">
+                    <div class="route-graphic-container">
+                        <svg viewBox="0 0 400 300" style="width: 100%; height: 100%;">
+                            <defs>
+                                <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                    <circle cx="2" cy="2" r="1" fill="#E5E7EB" />
+                                </pattern>
+                            </defs>
+                            <rect width="100%" height="100%" fill="url(#dotGrid)" />
+                            
+                            <!-- Background Static Routes -->
+                            <path d="M 50,220 Q 150,150 250,220 T 400,180" fill="none" stroke="#F3F4F6" stroke-width="2" />
+                            <path d="M 0,100 Q 100,200 200,100 T 400,200" fill="none" stroke="#F3F4F6" stroke-width="2" />
+
+                            <!-- Old Route -->
+                            <path d="M 80,240 L 140,260 L 200,180 L 280,220 L 320,150" fill="none" stroke="#D1D5DB" stroke-width="2" stroke-dasharray="4 4" />
+                            
+                            <!-- Optimized Route -->
+                            <path d="M 80,240 Q 160,250 200,180 T 320,150" fill="none" stroke="#111827" stroke-width="3" stroke-linecap="round" />
+                            
+                            <!-- Points -->
+                            <circle cx="80" cy="240" r="4" fill="#111827" />
+                            <circle cx="320" cy="150" r="4" fill="#111827" />
+                            
+                            <text x="80" y="270" text-anchor="middle" class="route-label">Start</text>
+                            <text x="320" y="140" text-anchor="middle" class="route-label" data-i18n="feat_grp_optimized">Optimiert</text>
+                        </svg>
+
+                        <div class="metric-card">
+                            <span class="label" data-i18n="feat_grp_label">EINGESPARTE KM</span>
+                            <span class="value" data-i18n="feat_grp_val">14,2 km</span>
+                            <span class="unit" data-i18n="feat_grp_unit">/ fahrt</span>
+                        </div>
+
+                        <div class="status-badge">
+                            <div class="status-dot"></div>
+                            <span data-i18n="feat_grp_sync">Echtzeit-Synchronisierung</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-text">
+                    <h3 data-i18n="feat_2_h">Performance Tracking</h3>
+                    <p data-i18n="feat_2_p">Identifizieren Sie Top-Performer und schulen Sie gezielt ineffiziente Abläufe. Alles basierend auf validen Echtzeit-Metriken.</p>
+                </div>
+                <div class="feature-img">
+                    <div class="perf-graphic-container">
+                        <div class="avg-card">
+                            <span class="label" data-i18n="perf_metric_label">DURCHSCHN. EFFIZIENZ</span>
+                            <span class="value">94.8%</span>
+                        </div>
+                        <div class="leaderboard">
+                            <div class="leader-row">
+                                <div class="leader-avatar" style="background:#DBEAFE"></div>
+                                <div class="leader-info">
+                                    <span class="leader-name">M. Schmidt</span>
+                                    <div class="leader-bar-bg"><div class="leader-bar-fill" style="width: 98%"></div></div>
+                                </div>
+                                <span class="perf-badge" data-i18n="perf_top">TOP</span>
+                                <span class="leader-score">98%</span>
+                            </div>
+                            <div class="leader-row">
+                                <div class="leader-avatar" style="background:#FEE2E2"></div>
+                                <div class="leader-info">
+                                    <span class="leader-name">L. Weber</span>
+                                    <div class="leader-bar-bg"><div class="leader-bar-fill" style="width: 92%"></div></div>
+                                </div>
+                                <span class="leader-score">92%</span>
+                            </div>
+                            <div class="leader-row">
+                                <div class="leader-avatar" style="background:#FEF3C7"></div>
+                                <div class="leader-info">
+                                    <span class="leader-name">J. Klein</span>
+                                    <div class="leader-bar-bg"><div class="leader-bar-fill" style="width: 89%"></div></div>
+                                </div>
+                                <span class="leader-score">89%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section>
+        <div class="container">
+            <h2 data-i18n="how_title">In 3 Schritten zur Effizienz.</h2>
+            <div class="problem-grid">
+                <div><strong style="color:var(--accent); font-size: 40px;">01</strong><h3 data-i18n="how_1_h">Daten-Import</h3><p data-i18n="how_1_p">Verbinden Sie Ihre Dashboards mit Fahrly für automatischen Datenfluss.</p></div>
+                <div><strong style="color:var(--accent); font-size: 40px;">02</strong><h3 data-i18n="how_2_h">Optimierung</h3><p data-i18n="how_2_p">Lassen Sie das System die effizientesten Pläne für Morgen erstellen.</p></div>
+                <div><strong style="color:var(--accent); font-size: 40px;">03</strong><h3 data-i18n="how_3_h">Profitieren</h3><p data-i18n="how_3_p">Überwachen Sie die Umsetzung live und reduzieren Sie Ausgaben sofort.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing">
+        <div class="container">
+            <h2 data-i18n="price_title">Transparente Preise für jedes Wachstum.</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <p><strong data-i18n="p_core">Core</strong></p>
+                    <div class="price">€50<span data-i18n="p_month">/monat</span></div>
+                    <ul style="list-style: none; margin-bottom: 24px; font-size: 14px;">
+                        <li data-i18n="p_s_1">✓ Bis zu 20 Fahrer</li>
+                        <li data-i18n="p_s_2">✓ Basis Reporting</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%;" data-i18n="cta_demo">Starten</a>
+                </div>
+                <div class="pricing-card popular">
+                    <p><strong data-i18n="p_ops">Operations</strong></p>
+                    <div class="price">€100<span data-i18n="p_month">/monat</span></div>
+                    <ul style="list-style: none; margin-bottom: 24px; font-size: 14px;">
+                        <li data-i18n="p_g_1">✓ Unbegrenzte Fahrer</li>
+                        <li data-i18n="p_g_2">✓ KI Routen-Optimierung</li>
+                        <li data-i18n="p_g_3">✓ WhatsApp Integration</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%;" data-i18n="cta_demo">Meistgewählt</a>
+                </div>
+                <div class="pricing-card">
+                    <p><strong data-i18n="p_enterprise">Enterprise</strong></p>
+                    <div class="price" data-i18n="p_e_price">Individuell</div>
+                    <p style="font-size: 14px; margin-bottom: 24px;" data-i18n="p_e_1">Für Flotten mit mehr als 500 Fahrzeugen.</p>
+                    <a href="#contact" class="btn btn-outline" style="width: 100%;" data-i18n="cta_demo">Kontakt</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+        <div class="container">
+            <h2 data-i18n="faq_title">Häufig gestellte Fragen</h2>
+            <div class="faq-item">
+                <h3 data-i18n="faq_1_q">Ist die Software Amazon DSP kompatibel?</h3>
+                <p data-i18n="faq_1_a">Ja, Fahrly wurde speziell auf die Workflows and Anforderungen von Amazon Delivery Service Partnern optimiert.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-i18n="faq_2_q">Wie lange dauert das Onboarding?</h3>
+                <p data-i18n="faq_2_a">Ihre Flotte ist in der Regel innerhalb von 48 Stunden vollständig im System abgebildet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" style="background-color: #F9FAFB;">
+        <div class="container">
+            <div class="contact-box" id="form-container">
+                <h2 data-i18n="contact_h">Jetzt Demo vereinbaren</h2>
+                <p data-i18n="contact_p">Lassen Sie uns gemeinsam analysieren, wie viel Sie diesen Monat sparen können.</p>
+                <form id="contact-form" onsubmit="return handleFormSubmit(event)">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label data-i18n="f_first">Vorname</label>
+                            <input type="text" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="f_last">Nachname</label>
+                            <input type="text" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="f_company">Unternehmen</label>
+                        <input type="text" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="f_email">Geschäftliche E-Mail</label>
+                        <input type="email" name="email" id="email-field" required>
+                        <div class="error-msg" id="email-error" data-i18n="error_email">Bitte verwenden Sie eine geschäftliche E-Mail Adresse.</div>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="f_phone">Telefonnummer</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;" data-i18n="cta_demo">Demo anfragen und sparen</button>
+                </form>
+            </div>
+
+            <div id="success-state">
+                <h2 data-i18n="success_h">Anfrage erhalten!</h2>
+                <p data-i18n="success_p">Vielen Dank für Ihr Interesse an Fahrly. Ein Experte wird sich innerhalb der nächsten 24 Stunden bei Ihnen melden.</p>
+                <p><strong data-i18n="success_next">Nächste Schritte:</strong></p>
+                <ul style="margin-top: 16px; margin-left: 20px;">
+                    <li data-i18n="s_1">Terminbestätigung prüfen</li>
+                    <li data-i18n="s_2">KPIs für die Analyse vorbereiten</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div style="font-weight: 900; font-size: 24px; color: var(--accent);">FAHRLY</div>
+            <div>
+                <p data-i18n="footer_p">© 2026 Fahrly Operations GmbH. Die führende Dispatch Software für moderne Logistikflotten.</p>
+                <div style="display: flex; gap: 24px; margin-top: 24px;">
+                    <a href="#">Impressum</a>
+                    <a href="#">Datenschutz</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- I18N Infrastructure -->
+    <script>
+        const translations = {
+            de: {
+                meta_title: "Fahrly | Intelligente Dispositionssoftware für Flottenbetreiber",
+                meta_desc: "Reduzieren Sie Überstunden und steigern Sie die Rentabilität Ihrer Flotte mit Fahrly. Die spezialisierte Dispositionssoftware für Amazon DSPs.",
+                nav_features: "Funktionen",
+                nav_pricing: "Preise",
+                nav_faq: "FAQ",
+                dash_title: "Operations Dashboard",
+                dash_kpi_1: "Umsatz",
+                dash_kpi_2: "Aktive Fahrer",
+                dash_kpi_3: "Auslastung",
+                dash_kpi_4: "Profit",
+                dash_t1: "Fahrer", dash_t2: "Route", dash_t3: "Status", dash_t4: "Effizienz",
+                hero_h1: "Dispositionssoftware für profitables Flottenmanagement.",
+                hero_sub: "Reduzieren Sie Überstunden um bis zu 25% und gewinnen Sie die volle Kontrolle über Ihre täglichen Routen – speziell für Amazon DSPs entwickelt.",
+                cta_demo: "Demo anfragen",
+                cta_more: "Mehr erfahren",
+                prob_title: "Warum traditionelle Disposition scheitert.",
+                prob_1_h: "Explodierende Überstunden",
+                prob_1_p: "Manuelle Planung führt zu ineffizienten Routen, die Ihre Profitabilität durch enorme Lohnnebenkosten zerstören.",
+                prob_2_h: "Daten-Blindflug",
+                prob_2_p: "Excel-Tabellen liefern keine Echtzeit-Daten. Wenn Sie das Problem bemerken, ist das Geld bereits verloren.",
+                prob_3_h: "Fahrerflucht",
+                prob_3_p: "Ungerechte Workload-Verteilung frustriert Ihre besten Leute. Hohe Fluktuation kostet Sie Zehntausende pro Jahr.",
+                feat_title: "Die Lösung für moderne Flottenbetreiber.",
+                feat_1_h: "KI-gestützte Tourenplanung",
+                feat_1_p: "Optimieren Sie Ihre Routen in Sekunden statt Stunden. Unser Algorithmus berücksichtigt Verkehr, Volumen und Fahrer-Skills automatisch.",
+                feat_2_h: "Performance Tracking",
+                feat_2_p: "Identifizieren Sie Top-Performer und schulen Sie gezielt ineffiziente Abläufe. Alles basierend auf validen Echtzeit-Metriken.",
+                how_title: "In 3 Schritten zur Effizienz.",
+                how_1_h: "Daten-Import", how_1_p: "Verbinden Sie Ihre Dashboards mit Fahrly für automatischen Datenfluss.",
+                how_2_h: "Optimierung", how_2_p: "Lassen Sie das System die effizientesten Pläne für Morgen erstellen.",
+                how_3_h: "Profitieren", how_3_p: "Überwachen Sie die Umsetzung live und reduzieren Sie Ausgaben sofort.",
+                price_title: "Transparente Preise für jedes Wachstum.",
+                p_core: "Core", p_ops: "Operations", p_enterprise: "Enterprise",
+                p_month: "/monat", p_e_price: "Individuell",
+                p_s_1: "✓ Bis zu 20 Fahrer", p_s_2: "✓ Basis Reporting",
+                p_g_1: "✓ Unbegrenzte Fahrer", p_g_2: "✓ KI Routen-Optimierung", p_g_3: "✓ WhatsApp Integration",
+                p_e_1: "✓ Für Flotten mit mehr als 500 Fahrzeugen.",
+                side_dash: "Dashboard", side_go: "FahrlyGO", side_fleet: "Flotte", side_hr: "HR",
+                side_compliance: "Compliance", side_finance: "Finanzen",
+                side_integration: "Integration", side_support: "Support",
+                side_hr_drivers: "Fahrer", side_hr_onboarding: "Onboarding",
+                side_hr_salary: "Lohnabrechnung", side_hr_timesheets: "Zeiterfassung",
+                feat_grp_optimized: "Optimiert", feat_grp_label: "EINGESPARTE KM",
+                feat_grp_val: "14,2 km", feat_grp_unit: "/ fahrt",
+                feat_grp_sync: "Echtzeit-Synchronisierung",
+                perf_metric_label: "DURCHSCHN. EFFIZIENZ", perf_top: "TOP",
+                faq_title: "Häufig gestellte Fragen",
+                faq_1_q: "Ist die Software Amazon DSP kompatibel?",
+                faq_1_a: "Ja, Fahrly wurde speziell auf die Workflows and Anforderungen von Amazon Delivery Service Partnern optimiert.",
+                faq_2_q: "Wie lange dauert das Onboarding?",
+                faq_2_a: "Ihre Flotte ist in der Regel innerhalb von 48 Stunden vollständig im System abgebildet.",
+                contact_h: "Jetzt Demo vereinbaren",
+                contact_p: "Lassen Sie uns gemeinsam analysieren, wie viel Sie diesen Monat sparen können.",
+                f_first: "Vorname", f_last: "Nachname", f_company: "Unternehmen", f_email: "Geschäftliche E-Mail", f_phone: "Telefonnummer",
+                error_email: "Bitte verwenden Sie eine geschäftliche E-Mail Adresse.",
+                success_h: "Anfrage erhalten!",
+                success_p: "Vielen Dank für Ihr Interesse an Fahrly. Ein Experte wird sich innerhalb der nächsten 24 Stunden bei Ihnen melden.",
+                success_next: "Nächste Schritte:",
+                s_1: "Terminbestätigung prüfen", s_2: "KPIs für die Analyse vorbereiten",
+                footer_p: "© 2026 Fahrly Operations GmbH. Die führende Dispatch Software für moderne Logistikflotten."
+            },
+            en: {
+                meta_title: "Fahrly | Intelligent Dispatch Software for Fleet Operators",
+                meta_desc: "Reduce overtime and boost your fleet's profitability with Fahrly. The specialized dispatch software for fleet operations.",
+                nav_features: "Features",
+                nav_pricing: "Pricing",
+                nav_faq: "FAQ",
+                dash_title: "Operations Dashboard",
+                dash_kpi_1: "Revenue",
+                dash_kpi_2: "Active Drivers",
+                dash_kpi_3: "Utilization",
+                dash_kpi_4: "Profit",
+                dash_t1: "Driver", dash_t2: "Route", dash_t3: "Status", dash_t4: "Efficiency",
+                hero_h1: "Dispatch software for profitable fleet management.",
+                hero_sub: "Reduce overtime by up to 25% and gain full control over your daily routes – specifically designed for fleet logistics.",
+                cta_demo: "Book a Demo",
+                cta_more: "Learn More",
+                prob_title: "Why traditional dispatching fails.",
+                prob_1_h: "Exploding Overtime",
+                prob_1_p: "Manual planning leads to inefficient routes that destroy your profitability through massive payroll costs.",
+                prob_2_h: "Operating in the Dark",
+                prob_2_p: "Spreadsheets don't provide real-time data. By the time you notice a problem, the money is already gone.",
+                prob_3_h: "Driver Retention",
+                prob_3_p: "Unfair workload distribution frustrates your best people. High turnover costs you thousands every year.",
+                feat_title: "The solution for modern fleet operators.",
+                feat_1_h: "AI-Powered Route Planning",
+                feat_1_p: "Optimize your routes in seconds instead of hours. Our algorithm accounts for traffic, volume, and driver skills automatically.",
+                feat_2_h: "Performance Tracking",
+                feat_2_p: "Identify top performers and targeted coaching for inefficient workflows. All based on valid real-time metrics.",
+                how_title: "3 steps to efficiency.",
+                how_1_h: "Data Import", how_1_p: "Connect your dashboards to Fahrly for automatic data flow.",
+                how_2_h: "Optimization", how_2_p: "Let the system create the most efficient plans for tomorrow.",
+                how_3_h: "Profit", how_3_p: "Monitor implementation live and reduce expenses immediately.",
+                price_title: "Transparent pricing for every growth stage.",
+                p_core: "Core", p_ops: "Operations", p_enterprise: "Enterprise",
+                p_month: "/month", p_e_price: "Custom Pricing",
+                p_s_1: "✓ Up to 20 Drivers", p_s_2: "✓ Basic Reporting",
+                p_g_1: "✓ Unlimited Drivers", p_g_2: "✓ AI Route Optimization", p_g_3: "✓ WhatsApp Integration",
+                p_e_1: "✓ For fleets with more than 500 vehicles.",
+                side_dash: "Dashboard", side_go: "FahrlyGO", side_fleet: "Fleet", side_hr: "HR",
+                side_compliance: "Compliance", side_finance: "Finance",
+                side_integration: "Integration", side_support: "Support",
+                side_hr_drivers: "Drivers", side_hr_onboarding: "Onboarding",
+                side_hr_salary: "Salary Calc", side_hr_timesheets: "Timesheets",
+                feat_grp_optimized: "Optimized", feat_grp_label: "DISTANCE SAVED",
+                feat_grp_val: "14.2 km", feat_grp_unit: "/ trip",
+                feat_grp_sync: "Real-time sync active",
+                perf_metric_label: "AVG EFFICIENCY", perf_top: "TOP",
+                faq_title: "Frequently Asked Questions",
+                faq_1_q: "Is the software Amazon DSP compatible?",
+                faq_1_a: "Yes, Fahrly is specifically optimized for the workflows and requirements of Amazon Delivery Service Partners.",
+                faq_2_q: "How long does onboarding take?",
+                faq_2_a: "Your fleet is usually fully mapped in the system within 48 hours.",
+                contact_h: "Book a Demo Today",
+                contact_p: "Let's analyze together how much you can save this month.",
+                f_first: "First Name", f_last: "Last Name", f_company: "Company", f_email: "Business Email", f_phone: "Phone Number",
+                error_email: "Please use a business email address.",
+                success_h: "Request Received!",
+                success_p: "Thank you for your interest in Fahrly. An expert will get back to you within the next 24 hours.",
+                success_next: "Next Steps:",
+                s_1: "Check your confirmation email", s_2: "Prepare KPIs for the analysis",
+                footer_p: "© 2026 Fahrly Operations GmbH. The leading dispatch software for modern logistics fleets."
+            }
+        };
+
+        let currentLang = localStorage.getItem('fahrly_lang') || 'de';
+
+        function updateContent() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+                const [attr, key] = el.getAttribute('data-i18n-attr').split(':');
+                if (translations[currentLang][key]) {
+                    el.setAttribute(attr, translations[currentLang][key]);
+                }
+            });
+
+            document.documentElement.lang = currentLang;
+            
+            // Update lang selector UI
+            document.querySelectorAll('.lang-selector span[data-lang]').forEach(span => {
+                if (span.getAttribute('data-lang') === currentLang) {
+                    span.classList.add('active');
+                } else {
+                    span.classList.remove('active');
+                }
+            });
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('fahrly_lang', currentLang);
+            updateContent();
+        }
+
+        // Initialize
+        updateContent();
+
+        // Form Logic
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const email = document.getElementById('email-field').value.toLowerCase();
+            const emailError = document.getElementById('email-error');
+            
+            const bannedDomains = ['gmail.com', 'hotmail.com', 'outlook.com', 'yahoo.com', 'web.de', 'gmx.de', 'icloud.com'];
+            const domain = email.split('@')[1];
+
+            if (bannedDomains.includes(domain)) {
+                emailError.style.display = 'block';
+                return false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            // Mock submission
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('success-state').style.display = 'block';
+            window.scrollTo({ top: document.getElementById('contact').offsetTop, behavior: 'smooth' });
+            return false;
+        }
+
+        // Smooth Scroll for CTAs
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Fahrly",
+      "operatingSystem": "Web",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "50.00",
+        "priceCurrency": "EUR"
+      }
+    }
+    </script>
+</body>
+</html>
