@@ -292,6 +292,25 @@
         .avg-card .label { font-size: 8px; font-weight: 600; opacity: 0.7; letter-spacing: 0.05em; }
         .avg-card .value { font-size: 20px; font-weight: 800; }
 
+        /* Revenue Graphic Styles */
+        .revenue-graphic-container {
+            width: 100%; height: 100%; padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px;
+            background: #F9FAFB;
+        }
+        .source-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; max-width: 240px; }
+        .source-node { 
+            background: white; padding: 10px; border-radius: 12px; border: 1px solid var(--border); 
+            display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; 
+        }
+        .source-node svg { width: 14px; height: 14px; color: #111827; }
+        .main-revenue-card {
+            background: #111827; color: white; padding: 20px; border-radius: 16px; width: 100%; max-width: 240px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); text-align: center;
+        }
+        .main-revenue-card .label { font-size: 9px; opacity: 0.6; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; display: block; }
+        .main-revenue-card .value { font-size: 24px; font-weight: 800; }
+        .flow-line { width: 2px; height: 20px; background: linear-gradient(to bottom, var(--border), #111827); }
+
         /* Pricing */
         .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
         .pricing-card { padding: 32px; border: 1px solid var(--border); border-radius: var(--radius-card); display: flex; flex-direction: column; }
@@ -561,6 +580,40 @@
                     </div>
                 </div>
             </div>
+
+            <div class="feature-item" style="direction: rtl;">
+                <div class="feature-text" style="direction: ltr;">
+                    <h3 data-i18n="feat_3_h">All trips, all sources, in one view</h3>
+                    <p data-i18n="feat_3_p">Cash, card, app, platform orders, contract customers — private hire money comes in from multiple sources and rarely ends up in one place. Fahrly consolidates trips and revenue in a single dashboard, in real time, sortable by driver, vehicle, or day.</p>
+                </div>
+                <div class="feature-img">
+                    <div class="revenue-graphic-container">
+                        <div class="source-grid">
+                            <div class="source-node">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                <span data-i18n="feat_grp_cash">Cash</span>
+                            </div>
+                            <div class="source-node">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                                <span data-i18n="feat_grp_card">Card</span>
+                            </div>
+                            <div class="source-node">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                <span data-i18n="feat_grp_app">App</span>
+                            </div>
+                            <div class="source-node">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20"/></svg>
+                                <span data-i18n="feat_grp_platform">Platform</span>
+                            </div>
+                        </div>
+                        <div class="flow-line"></div>
+                        <div class="main-revenue-card">
+                            <span class="label" data-i18n="feat_grp_rev_total">GESAMTUMSATZ</span>
+                            <span class="value">€14,240.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -734,6 +787,10 @@
                 feat_grp_val: "14,2 km", feat_grp_unit: "/ fahrt",
                 feat_grp_sync: "Echtzeit-Synchronisierung",
                 perf_metric_label: "DURCHSCHN. EFFIZIENZ", perf_top: "TOP",
+                feat_3_h: "Alle Fahrten, alle Quellen, in einer Ansicht",
+                feat_3_p: "Bargeld, Karte, App, Plattformbestellungen, Vertragskunden — das Geld aus der Personenbeförderung kommt aus vielen Quellen und landet selten an einem Ort. Fahrly fasst Fahrten und Einnahmen in einem einzigen Dashboard in Echtzeit zusammen, sortierbar nach Fahrer, Fahrzeug oder Tag.",
+                feat_grp_cash: "Bargeld", feat_grp_card: "Karte", feat_grp_app: "App", feat_grp_platform: "Plattform",
+                feat_grp_rev_total: "GESAMTUMSATZ",
                 faq_title: "Häufig gestellte Fragen",
                 faq_1_q: "Ist die Software Amazon DSP kompatibel?",
                 faq_1_a: "Ja, Fahrly wurde speziell auf die Workflows and Anforderungen von Amazon Delivery Service Partnern optimiert.",
@@ -796,6 +853,10 @@
                 feat_grp_val: "14.2 km", feat_grp_unit: "/ trip",
                 feat_grp_sync: "Real-time sync active",
                 perf_metric_label: "AVG EFFICIENCY", perf_top: "TOP",
+                feat_3_h: "All trips, all sources, in one view",
+                feat_3_p: "Cash, card, app, platform orders, contract customers — private hire money comes in from multiple sources and rarely ends up in one place. Fahrly consolidates trips and revenue in a single dashboard, in real time, sortable by driver, vehicle, or day.",
+                feat_grp_cash: "Cash", feat_grp_card: "Card", feat_grp_app: "App", feat_grp_platform: "Platform",
+                feat_grp_rev_total: "TOTAL REVENUE",
                 faq_title: "Frequently Asked Questions",
                 faq_1_q: "Is the software Amazon DSP compatible?",
                 faq_1_a: "Yes, Fahrly is specifically optimized for the workflows and requirements of Amazon Delivery Service Partners.",
